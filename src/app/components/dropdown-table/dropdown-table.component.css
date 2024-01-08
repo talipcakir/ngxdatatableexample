@@ -1,0 +1,16 @@
+#searchInput {
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 0 5px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-content {
+  position: fixed;
+  min-width: 170px;
+  overflow: auto;
+  border: 1px solid #ddd;
+  z-index: 9999;
+  background: #fff;
+}

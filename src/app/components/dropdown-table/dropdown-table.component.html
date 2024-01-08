@@ -1,0 +1,16 @@
+<div class="dropdown">
+  <input #search type="text" class="form-control" [value]="selectedIlValue" placeholder="İl Ara.." id="search" (focusin)="focusIn()" (focusout)="focusOut()" (keydown)="filterFunction($event)">
+  <div class="dropdown-content" [ngClass]="{'d-none':!searchOnFocus}">
+      <ngx-datatable
+        class="material striped"
+        [rows]="rows"
+        [columnMode]="ColumnMode.force"
+        [columns]="columns"
+        [headerHeight]="40"
+        [footerHeight]="1"
+        [rowHeight]="'auto'"
+        [limit]="5"
+        (activate)="onActivate($event)">
+      </ngx-datatable>
+    </div>
+</div>

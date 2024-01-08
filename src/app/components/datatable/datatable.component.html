@@ -1,0 +1,58 @@
+<div class="d-flex">
+  <div class="flex-fill me-4">
+    <button mat-raised-button class="float-end" color="primary" [disabled]="changeList?.length === 0 && !changeText" (click)="saveAll()">
+      <i class="fa fa-floppy-o me-1" title="Save"></i> Tümünü Kaydet
+    </button>
+  </div>
+</div>
+<ngx-datatable
+  #table
+  class='material striped m-4'
+  [columnMode]="'flex'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [limit]="10"
+  [rows]='rows'>
+
+  <ngx-datatable-column [sortable]="false" [flexGrow]="1.5" name="İl" prop="il_id">
+    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+      @if (isEditable[rowIndex]) {
+        <app-dropdown-table [rows]="ilData" (selectedIl)="selectIlData($event, rowIndex)"></app-dropdown-table>
+      } @else {
+        <input [value]="getIlName(row.il_id)" [disabled]="true">
+      }
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column [sortable]="false" [flexGrow]="1.5" name="İlçe Id" prop="id">
+    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+      <input [value]="row.id" [disabled]="!isEditable[rowIndex]">
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column [sortable]="false" [flexGrow]="1.5" name="İlçe" prop="name">
+    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+      <input [value]="row.name" [disabled]="!isEditable[rowIndex]">
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column [sortable]="false" [flexGrow]="0.5">
+    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex"
+                 ngx-datatable-cell-template>
+      <i class="fa fa-pencil text-primary"
+         title="Modify"
+         *ngIf="!this.isEditable[rowIndex]"
+         (click)="editClick(row, rowIndex)"></i>
+      <i class="fa fa-floppy-o text-success"
+         *ngIf="this.isEditable[rowIndex]"
+         title="Save"
+         (click)="save(row, rowIndex);"></i>
+      <i class="fa fa-close ms-3 text-danger"
+         *ngIf="this.isEditable[rowIndex]"
+         title="Delete"
+         (click)="delete(row,rowIndex)"></i>
+    </ng-template>
+  </ngx-datatable-column>
+
+</ngx-datatable>
