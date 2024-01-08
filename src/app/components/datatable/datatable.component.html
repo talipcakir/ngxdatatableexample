@@ -1,6 +1,7 @@
 <div class="d-flex">
   <div class="flex-fill me-4">
-    <button mat-raised-button class="float-end" color="primary" [disabled]="changeList?.length === 0 && !changeText" (click)="saveAll()">
+    <button mat-raised-button class="float-end" color="primary" [disabled]="changeList?.length === 0 && !changeText"
+            (click)="saveAll()">
       <i class="fa fa-floppy-o me-1" title="Save"></i> Tümünü Kaydet
     </button>
   </div>
@@ -17,11 +18,12 @@
 
   <ngx-datatable-column [sortable]="false" [flexGrow]="1.5" name="İl" prop="il_id">
     <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-      @if (isEditable[rowIndex]) {
-        <app-dropdown-table [rows]="ilData" (selectedIl)="selectIlData($event, rowIndex)"></app-dropdown-table>
-      } @else {
+
+      <app-dropdown-table *ngIf="isEditable[rowIndex] else showInputIl" [rows]="ilData"
+                          (selectedIl)="selectIlData($event, rowIndex)"></app-dropdown-table>
+      <ng-template #showInputIl>
         <input [value]="getIlName(row.il_id)" [disabled]="true">
-      }
+      </ng-template>
     </ng-template>
   </ngx-datatable-column>
 
